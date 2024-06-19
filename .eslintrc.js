@@ -4,15 +4,19 @@ module.exports = {
     node: true,
   },
   extends: [
-    "plugin:vue/vue3-essential",
+    "plugin:vue/essential",
     "eslint:recommended",
     "plugin:prettier/recommended",
   ],
-  parserOptions: {
-    parser: "@babel/eslint-parser",
-  },
   rules: {
-    "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
-    "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
+    "no-console": process.env.NODE_ENV === "production" ? "error" : "off",
+    "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off",
+
+    // temporary rules
+    "no-prototype-builtins": "off",
+    "vue/multi-word-component-names": "off",
+    "no-dupe-else-if": "off",
+    "vue/no-mutating-props": "off",
+    "vue/valid-v-slot": "off",
   },
 };
