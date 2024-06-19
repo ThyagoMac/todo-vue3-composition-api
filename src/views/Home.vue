@@ -18,7 +18,7 @@
           class="flex items-center px-4 bg-gray-900 h-15 rounded-sm border-l-2 border-green-400 mb-3"
         >
           <input
-            placeholder="Adicione um novo item ..."
+            placeholder="Add new item ..."
             type="text"
             class="bg-gray-900 placeholder-gray-500 text-gray-500 font-light focus:outline-none block w-full appearance-none leading-normal py-3 pr-3"
           />
@@ -27,7 +27,7 @@
             class="text-green-400 text-xs font-semibold focus:outline-none"
             type="submit"
           >
-            ADICIONAR
+            ADD
           </button>
         </form>
         <!--/ Todo form -->
@@ -150,9 +150,7 @@
         <!--/ Todo items -->
 
         <!-- Todo empty -->
-        <div class="text-center text-lg text-gray-500">
-          Você ainda não tem nenhuma tarefa.
-        </div>
+        <div class="text-center text-lg text-gray-500">Nothing to do</div>
         <!--/ Todo empty -->
       </div>
     </div>
