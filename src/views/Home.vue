@@ -13,7 +13,6 @@
         </template>
       </div>
     </div>
-    {{ $store.state.todos }}
   </div>
 </template>
 <script>
@@ -21,6 +20,8 @@ import Spinner from "@/components/Spinner.vue";
 import TodoFormAdd from "@/components/TodoFormAdd.vue";
 import TodoItems from "@/components/TodoItems.vue";
 import TodoEmpty from "@/components/TodoEmpty.vue";
+import { ref } from "vue";
+import { useStore } from "vuex";
 
 export default {
   name: "Home",
@@ -30,19 +31,18 @@ export default {
     TodoItems,
     TodoEmpty,
   },
-  data() {
-    return {
-      loading: false,
-    };
-  },
+  setup() {
+    const loading = ref(false);
+    const store = useStore();
 
-  created() {
-    this.loading = true;
+    loading.value = true;
     setTimeout(() => {
-      this.$store.dispatch("getTodos").finally(() => {
-        this.loading = false;
+      store.dispatch("getTodos").finally(() => {
+        loading.value = false;
       });
     }, 800);
+
+    return { loading };
   },
 };
 </script>
