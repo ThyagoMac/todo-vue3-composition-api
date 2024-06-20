@@ -1,19 +1,9 @@
 {
   "todos": [
     {
-      "title": "asdasd",
+      "title": "pipipi",
       "completed": false,
       "id": 1
-    },
-    {
-      "title": "pipi",
-      "completed": true,
-      "id": 2
-    },
-    {
-      "title": "popoooo",
-      "completed": false,
-      "id": 3
     }
   ]
 }

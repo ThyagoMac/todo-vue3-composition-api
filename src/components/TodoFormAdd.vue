@@ -28,8 +28,8 @@ import { useStore } from "vuex";
 export default {
   components: { Spinner },
   setup() {
-    let title = ref("");
-    let isLoading = ref(false);
+    const title = ref("");
+    const isLoading = ref(false);
     const store = useStore();
 
     const onAddTodo = () => {

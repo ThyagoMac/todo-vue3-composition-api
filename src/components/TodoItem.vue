@@ -63,6 +63,9 @@
   </div>
 </template>
 <script>
+import { ref } from "vue";
+import { useStore } from "vuex";
+
 export default {
   props: {
     todo: {
@@ -70,38 +73,48 @@ export default {
       default: () => ({}),
     },
   },
-  data() {
-    return {
-      isCompleted: this.todo.completed,
-    };
-  },
-  methods: {
-    updateTodo(/* $event */) {
+  setup(props) {
+    const store = useStore();
+    const propTodo = ref(props.todo);
+    const isCompleted = ref(props.todo.completed);
+
+    const updateTodo = () => {
       //element value:
       //console.log($event.target.value);
-      if (this.todo.title.length < 1) {
+      if (propTodo.value.title.length < 1) {
         return;
       }
 
       const data = {
-        id: this.todo.id,
+        id: propTodo.value.id,
         payload: {
-          title: this.todo.title,
-          completed: this.isCompleted,
+          title: propTodo.value.title,
+          completed: isCompleted.value,
         },
       };
 
-      this.$store.dispatch("updateTodo", data);
-    },
-    onCompleteTodo() {
-      this.isCompleted = !this.isCompleted;
+      store.dispatch("updateTodo", data);
+    };
 
-      this.updateTodo();
-    },
-    onDelete() {
-      this.$store.dispatch("deleteTodo", this.todo.id);
-    },
+    const onCompleteTodo = () => {
+      isCompleted.value = !isCompleted.value;
+
+      updateTodo();
+    };
+
+    const onDelete = () => {
+      store.dispatch("deleteTodo", propTodo.value.id);
+    };
+
+    return {
+      propTodo,
+      isCompleted,
+      updateTodo,
+      onCompleteTodo,
+      onDelete,
+    };
   },
+  methods: {},
 };
 </script>
 <style scoped></style>
