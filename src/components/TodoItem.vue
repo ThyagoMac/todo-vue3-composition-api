@@ -1,10 +1,16 @@
-<template lang="">
+<template>
   <div class="bg-gray-300 rounded-sm">
     <div
       class="flex items-center px-4 py-3 border-b border-gray-400 last:border-b-0"
     >
       <div class="flex items-center justify-center mr-2">
-        <button class="text-gray-400">
+        <button
+          :class="{
+            'text-green-600': isCompleted,
+            'text-gray-400': !isCompleted,
+          }"
+          @click="onCompleteTodo"
+        >
           <svg
             class="w-5 h-5"
             fill="none"
@@ -25,14 +31,15 @@
       <div class="w-full">
         <input
           type="text"
-          placeholder="Digite a sua tarefa"
-          value="Estudar Vue 3"
+          placeholder="Your todo"
           class="bg-gray-300 placeholder-gray-500 text-gray-700 font-light focus:outline-none block w-full appearance-none leading-normal mr-3"
+          @keyup.enter="updateTodo"
+          v-model="todo.title"
         />
       </div>
 
       <div class="ml-auto flex items-center justify-center">
-        <button class="focus:outline-none">
+        <button class="focus:outline-none" @click="onDelete">
           <svg
             class="ml-3 h-4 w-4 text-gray-500"
             viewBox="0 0 24 24"
@@ -56,6 +63,45 @@
   </div>
 </template>
 <script>
-export default {};
+export default {
+  props: {
+    todo: {
+      type: Object,
+      default: () => ({}),
+    },
+  },
+  data() {
+    return {
+      isCompleted: this.todo.completed,
+    };
+  },
+  methods: {
+    updateTodo(/* $event */) {
+      //element value:
+      //console.log($event.target.value);
+      if (this.todo.title.length < 1) {
+        return;
+      }
+
+      const data = {
+        id: this.todo.id,
+        payload: {
+          title: this.todo.title,
+          completed: this.isCompleted,
+        },
+      };
+
+      this.$store.dispatch("updateTodo", data);
+    },
+    onCompleteTodo() {
+      this.isCompleted = !this.isCompleted;
+
+      this.updateTodo();
+    },
+    onDelete() {
+      this.$store.dispatch("deleteTodo", this.todo.id);
+    },
+  },
+};
 </script>
-<style lang=""></style>
+<style scoped></style>

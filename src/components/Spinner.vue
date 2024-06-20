@@ -1,4 +1,4 @@
-<template lang="">
+<template>
   <div class="text-center">
     <img src="@/assets/img/spinner.svg" alt="" class="inline-block w-5 h-5" />
   </div>
@@ -6,4 +6,4 @@
 <script>
 export default {};
 </script>
-<style lang=""></style>
+<style scoped></style>
