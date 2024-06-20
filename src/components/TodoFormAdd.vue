@@ -23,35 +23,36 @@
 </template>
 <script>
 import Spinner from "@/components/Spinner.vue";
+import { ref } from "vue";
+import { useStore } from "vuex";
 export default {
   components: { Spinner },
-  data() {
-    return {
-      title: "",
-      isLoading: false,
-    };
-  },
+  setup() {
+    let title = ref("");
+    let isLoading = ref(false);
+    const store = useStore();
 
-  methods: {
-    onAddTodo() {
-      if (this.title.length < 1) {
+    const onAddTodo = () => {
+      if (title.value.length < 1) {
         return;
       }
 
-      this.isLoading = true;
+      isLoading.value = true;
 
       const data = {
-        title: this.title,
+        title: title.value,
         completed: false,
       };
 
       setTimeout(() => {
-        this.$store.dispatch("addTodo", data).finally(() => {
-          this.title = "";
-          this.isLoading = false;
+        store.dispatch("addTodo", data).finally(() => {
+          title.value = "";
+          isLoading.value = false;
         });
       }, 800);
-    },
+    };
+
+    return { title, isLoading, onAddTodo };
   },
 };
 </script>
